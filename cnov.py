@@ -165,4 +165,4 @@ def update_hotsearch():
         close_conn(conn,cursor)
 
 if __name__ == '__main__':
-    pass
+    update_hotsearch()
