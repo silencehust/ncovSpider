@@ -18,10 +18,11 @@ body{
 }
 #time{
   position: absolute;
-  width: 30%;
   height: 10%;
-  top: 0;
-  right: 0;
+  top: 5%;
+  right: 2%;
+  font-size: 30px;
+  color: white;
 }
 #c1{
   position: absolute;
@@ -29,6 +30,27 @@ body{
   height: 30%;
   top: 10%;
   left: 30%;
+  color: white;
+}
+.num{
+  width: 25%;
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: gold;
+  font-size: 20px;
+}
+.txt{
+  width: 25%;
+  float: left;
+  font-family: "幼圆";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.txt2{
+  margin: 0;
 }
 #c2{
   position: absolute;

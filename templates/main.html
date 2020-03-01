@@ -3,16 +3,57 @@
   <head>
     <meta charset="utf-8">
     <title>疫情监控</title>
+    <script src="../static/js/jquery.js"></script>
     <link href="../static/css/main.css" rel="stylesheet" />
   </head>
   <body>
     <div id="title">全国疫情实时追踪</div>
-    <div id="time">时间</div>
+    <div id="time"></div>
     <div id="l1">左一</div>
     <div id="l2">左二</div>
-    <div id="c1">中一</div>
+    <div id="c1">
+      <div class="num"><h1>123</h1></div>
+      <div class="num"><h1>123</h1></div>
+      <div class="num"><h1>123</h1></div>
+      <div class="num"><h1>123</h1></div>
+      <div class="txt"><h2>累计确认</h2></div>
+      <div class="txt"><h2>剩余疑似</h2></div>
+      <div class="txt"><h2>累计治愈</h2></div>
+      <div class="txt"><h2>累计死亡</h2></div>
+    </div>
     <div id="c2">中二</div>
     <div id="r1">右一</div>
     <div id="r2">右二</div>
+    <script>
+      function gettime(){
+        $.ajax({
+          url:"/time",
+          timeout:10000,
+          success:function(data){
+            $("#time").html(data)
+          },
+          error:function(xhr,type,errorThrown){
+
+          }
+        });
+      }
+      function get_c1_data(){
+        $.ajax({
+          url:"/c1",
+          timeout:10000,
+          success:function(data){
+            $(".num h1").eq(0).text(data.confirm);
+            $(".num h1").eq(1).text(data.suspect);
+            $(".num h1").eq(2).text(data.heal);
+            $(".num h1").eq(3).text(data.dead);
+          },
+          error:function(xhr,type,errorThrown){
+
+          }
+        });
+      }
+      setInterval(gettime,1000)
+      setInterval(get_c1_data,10000)
+    </script>
   </body>
 </html>
