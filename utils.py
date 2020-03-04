@@ -27,5 +27,29 @@ def get_c1_data():
     res=query(sql)
     return res[0]
 
+def get_c2_data():
+    sql="select province,sum(confirm) from details where update_time=(select update_time from details order by update_time desc limit 1) group by province"
+    res=query(sql)
+    return res
+
+def get_l1_data():
+    sql="select ds,confirm,suspect,heal,dead from history"
+    res=query(sql)
+    return res
+
+def get_l2_data():
+    sql="select ds,confirm_add,suspect_add from history"
+    res=query(sql)
+    return res
+
+def get_r1_data():
+    sql='select city,confirm from (select city,confirm from details where update_time=(select update_time from details order by update_time desc limit 1) and province not in ("北京","湖北","上海","天津","重庆") union all select province as city,sum(confirm) as confirm from details where update_time=(select update_time from details order by update_time desc limit 1) and province in ("北京","上海","天津","重庆") group by province) as a order by confirm desc limit 5'
+    res=query(sql)
+    return res
+
+def get_r2_data():
+    sql="select content from hotsearch order by id desc limit 20"
+    res=query(sql)
+    return res
 if __name__ == '__main__':
-    print(get_c1_data())
+    pass

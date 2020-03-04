@@ -4,6 +4,7 @@ import pymysql
 import traceback
 import time
 from selenium.webdriver import Firefox,FirefoxOptions
+import sys
 
 def get_tencent_data(url):
     headers = {
@@ -27,7 +28,7 @@ def get_history():
         dead = i["dead"]
         history[ds] = {"confirm": confirm, "suspect": suspect, "heal": heal, "dead": dead}
 
-    for i in data_all['chinaDayList']:
+    for i in data_all['chinaDayAddList']:
         ds = "2020." + i["date"]
         tup = time.strptime(ds, "%Y.%m.%d")
         ds = time.strftime("%Y-%m-%d", tup)
@@ -59,7 +60,7 @@ def get_details():
     return details
 
 def get_conn():
-    conn=pymysql.connect(host="localhost",user="root",password="CHENG345@qian",db="2019ncov",charset="utf8")
+    conn=pymysql.connect(host="116.62.52.185",user="root",password="CHENG345@qian",db="2019ncov",charset="utf8")
     cursor=conn.cursor()
     return conn,cursor
 
@@ -165,4 +166,22 @@ def update_hotsearch():
         close_conn(conn,cursor)
 
 if __name__ == '__main__':
-    update_hotsearch()
+    l=len(sys.argv)
+    if l==1:
+        s="""
+        参数说明：
+        1：更新历史数据
+        2：更新详情数据
+        3：更新每日热搜数据
+        """
+        print(s)
+    else:
+        order=sys.argv[1]
+        if order=="1":
+            update_history()
+        elif order=="2":
+            update_details()
+        elif order=="3":
+            update_hotsearch()
+        else:
+            print("参数错误")
