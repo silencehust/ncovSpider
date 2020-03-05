@@ -6,6 +6,17 @@ import time
 from selenium.webdriver import Firefox,FirefoxOptions
 import sys
 
+def get_conn():
+    conn=pymysql.connect(host="",user="root",password="",db="2019ncov",charset="utf8")
+    cursor=conn.cursor()
+    return conn,cursor
+
+def close_conn(conn,cursor):
+    if cursor:
+        cursor.close()
+    if conn:
+        conn.close()
+
 def get_tencent_data(url):
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0"
@@ -58,17 +69,6 @@ def get_details():
             details.append([update_time,province,city,confirm,confirm_add,heal,dead])
 
     return details
-
-def get_conn():
-    conn=pymysql.connect(host="116.62.52.185",user="root",password="CHENG345@qian",db="2019ncov",charset="utf8")
-    cursor=conn.cursor()
-    return conn,cursor
-
-def close_conn(conn,cursor):
-    if cursor:
-        cursor.close()
-    if conn:
-        conn.close()
 
 def update_details():
     cursor=None
